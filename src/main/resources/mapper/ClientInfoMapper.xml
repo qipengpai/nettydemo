@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qpp.nettydemo.dao.ClientInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qpp.nettydemo.entity.ClientInfo">
+    <id column="clientid" jdbcType="VARCHAR" property="clientid" />
+    <result column="connected" jdbcType="INTEGER" property="connected" />
+    <result column="mostsignbits" jdbcType="BIGINT" property="mostsignbits" />
+    <result column="leastsignbits" jdbcType="BIGINT" property="leastsignbits" />
+    <result column="lastconnecteddate" jdbcType="VARCHAR" property="lastconnecteddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    clientid, connected, mostsignbits, leastsignbits, lastconnecteddate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from client_info
+    where clientid = #{clientid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from client_info
+    where clientid = #{clientid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.qpp.nettydemo.entity.ClientInfo">
+    insert into client_info (clientid, connected, mostsignbits, 
+      leastsignbits, lastconnecteddate)
+    values (#{clientid,jdbcType=VARCHAR}, #{connected,jdbcType=INTEGER}, #{mostsignbits,jdbcType=BIGINT}, 
+      #{leastsignbits,jdbcType=BIGINT}, #{lastconnecteddate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qpp.nettydemo.entity.ClientInfo">
+    insert into client_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientid != null">
+        clientid,
+      </if>
+      <if test="connected != null">
+        connected,
+      </if>
+      <if test="mostsignbits != null">
+        mostsignbits,
+      </if>
+      <if test="leastsignbits != null">
+        leastsignbits,
+      </if>
+      <if test="lastconnecteddate != null">
+        lastconnecteddate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientid != null">
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="connected != null">
+        #{connected,jdbcType=INTEGER},
+      </if>
+      <if test="mostsignbits != null">
+        #{mostsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="leastsignbits != null">
+        #{leastsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="lastconnecteddate != null">
+        #{lastconnecteddate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qpp.nettydemo.entity.ClientInfo">
+    update client_info
+    <set>
+      <if test="connected != null">
+        connected = #{connected,jdbcType=INTEGER},
+      </if>
+      <if test="mostsignbits != null">
+        mostsignbits = #{mostsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="leastsignbits != null">
+        leastsignbits = #{leastsignbits,jdbcType=BIGINT},
+      </if>
+      <if test="lastconnecteddate != null">
+        lastconnecteddate = #{lastconnecteddate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where clientid = #{clientid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qpp.nettydemo.entity.ClientInfo">
+    update client_info
+    set connected = #{connected,jdbcType=INTEGER},
+      mostsignbits = #{mostsignbits,jdbcType=BIGINT},
+      leastsignbits = #{leastsignbits,jdbcType=BIGINT},
+      lastconnecteddate = #{lastconnecteddate,jdbcType=VARCHAR}
+    where clientid = #{clientid,jdbcType=VARCHAR}
+  </update>
+</mapper>
